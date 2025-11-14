@@ -1,6 +1,6 @@
 import pandas as pd
 import numpy as np
-import shap # For jupyter notebook
+import shap
 from sklearn.inspection import permutation_importance
 import matplotlib.pyplot as plt
 
