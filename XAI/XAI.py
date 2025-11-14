@@ -4,7 +4,44 @@ import shap
 from sklearn.inspection import permutation_importance
 import matplotlib.pyplot as plt
 
-def explanation_shap(model, x_train, x_test, task_type, full_columns = None, scaler = None, index = 10, show_plot = False):
+def explanation_shap(model, x_train, x_test, task_type, scaler = None, full_columns = None, index = 10, show_plot = False):
+    """
+    Generate SHAP explanations for a given model and dataset.
+    Global explanations show feature importance across all test samples.
+    Local explanations focus on a single instance (specified by `index`).
+
+    Parameters:
+    -----------
+    model : object
+        Trained machine learning model compatible with SHAP.
+    x_train : pd.DataFrame or np.array
+        Training feature data used to fit the model.
+    x_test : pd.DataFrame or np.array
+        Test feature data to explain predictions on.
+    task_type : str
+        Type of SHAP explanation:
+        'global' for overall feature importance,
+        'local' for individual prediction explanation.
+    scaler : object, optional
+        Pre-fitted scaler (e.g., StandardScaler) to transform x_train and x_test
+    full_columns : list, optional
+        List of column names for the dataset. Required only if a scaler is used
+        (to retain proper column names after scaling).
+    index : int, optional
+        For local task: index of the sample to explain (default is 10).
+        For global task: maximum number of features to display in the beeswarm plot.
+    show_plot : bool, optional
+        Whether to display the SHAP plots (beeswarm for global, waterfall for local).
+
+    Returns:
+    --------
+    explainer : shap.Explainer
+        SHAP explainer object fitted on the training data.
+    shap_values : shap.Explanation
+        SHAP values for the test dataset.
+    shap_df : pd.DataFrame
+        DataFrame containing SHAP values; either global (all samples) or local (single sample).
+    """
     if scaler is not None:
         x_train_scaled = scaler.transform(x_train)
         x_train = pd.DataFrame(x_train_scaled, columns=full_columns)
@@ -20,7 +57,7 @@ def explanation_shap(model, x_train, x_test, task_type, full_columns = None, sca
     if task_type == 'global':
         if show_plot:
             shap.plots.beeswarm(shap_values, max_display=index)
-        all_shap_values_array = shap_values.values  # shape: (num_samples, num_features)
+        all_shap_values_array = shap_values.values
         feature_names = x_test.columns if hasattr(x_test, 'columns') else [f"Feature_{i}" for i in range(all_shap_values_array.shape[1])]
         shap_df = pd.DataFrame(all_shap_values_array, columns=feature_names)
     elif task_type == 'local':
@@ -40,11 +77,45 @@ def per_imprt(model,
                 scaler = None,
                 full_columns = None,
                 n_repeats = 10,
-                random_state = 0,
+                random_state = 10,
                 scoring=None,
                 show_plot = False,
                 plot_top_n = 10):
-    """Calculate permutation importance and return the result."""
+    """
+    Calculate permutation feature importance for a model.
+
+    Parameters
+    ----------
+    model : object
+        Trained machine learning model compatible with permutation_importance.
+    x_test : pd.DataFrame or np.array
+        Test features to evaluate permutation importance.
+    y_test : pd.Series or np.array
+        True labels corresponding to x_test.
+    scaler : object, optional
+        Pre-fitted scaler (e.g., StandardScaler) to transform x_train and x_test
+    full_columns : list, optional
+        List of column names for the dataset. Required only if a scaler is used
+        (to retain proper column names after scaling).
+    n_repeats : int, optional
+        Number of times to permute a feature (default is 10).
+    random_state : int, optional
+        Random seed for reproducibility (default is 10).
+    scoring : str or callable, optional
+        Scoring metric to evaluate model performance. If None, uses model's default score.
+    show_plot : bool, optional
+        Whether to display a horizontal bar plot of the top features (default is False).
+        The plot shows mean permutation importance with error bars representing standard deviation.
+    plot_top_n : int, optional
+        Number of top features to display in the plot (default is 10).
+
+    Returns
+    -------
+    result : sklearn.utils._permutation_importance.PermutationImportanceResult
+        Object returned by sklearn's permutation_importance containing importances.
+    importance_df : pd.DataFrame
+        DataFrame containing feature names, mean importance, and standard deviation of importance.
+    """
     if scaler is not None:
         x_train_scaled = scaler.transform(x_train)
         x_train = pd.DataFrame(x_train_scaled, columns=full_columns)
