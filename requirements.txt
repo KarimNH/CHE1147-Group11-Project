@@ -1,3 +1,9 @@
 molSimplify==1.7.4
 pymatgen==2023.8.10
 pandas
+joblib
+scikit-learn
+numpy
+matplotlib
+xgboost
+shap
