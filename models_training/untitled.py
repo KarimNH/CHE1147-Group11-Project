@@ -54,6 +54,14 @@ def dummy_regressor_baseline(X_train, y_train):
     return dummy_regressors
 
 # Add the function for linear regression and krr here...
+def get_default_krr(X_train, y_train):
+    """
+    Returns an untuned KernelRidge Regressor using an RBF Kernel with default parameters.
+    """
+    model = KernelRidge(kernel='rbf')
+    model.fit(X_train, y_train)
+    
+    return model
 
 def get_default_xgb(X_train, y_train, random_seed=10):
     """
