@@ -11,8 +11,6 @@ requires-python = "==3.8.20"
 license = { text = "MIT" }
 authors = [
     { name = "Your Name", email = "you@example.com" }
-    { name = "Your Name", email = "you@example.com" }
-    { name = "Your Name", email = "you@example.com" }
 ]
 
 [dependencies]
