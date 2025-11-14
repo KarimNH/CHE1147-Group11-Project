@@ -76,7 +76,8 @@ def get_default_rf(X_train, y_train, random_seed=10):
 def reg_cv(model_type, search_type, param, cv, scorer, X_train, y_train, n_iter = 500, random_seed=10):
     """
     Perform hyperparameter tuning using GridSearchCV or RandomizedSearchCV
-    for regression models (XGBRegressor or RandomForestRegressor)"""
+    for regression models (XGBRegressor or RandomForestRegressor)
+    """
 
     if model_type == 'xgb':
         model = XGBRegressor(random_state=random_seed)
