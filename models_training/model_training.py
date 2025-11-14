@@ -16,13 +16,11 @@ def get_regression_metrics(model, X, y_true):
     including MAE, MSE, Max Error, MAPE, R2 Score
     """
     y_predicted = model.predict(X)
-
     mae = mean_absolute_error(y_true, y_predicted)
     mse = mean_squared_error(y_true, y_predicted)
     maximum_error = max_error(y_true, y_predicted)
     mape = mean_absolute_percentage_error(y_true, y_predicted)
     r2 = r2_score(y_true, y_predicted)
-
     metrics_dict = {
         'mae': mae,
         'mse': mse,
@@ -30,7 +28,6 @@ def get_regression_metrics(model, X, y_true):
         'mape': mape,
         'r2': r2
     }
-
     return metrics_dict
 
 def dummy_regressor_baseline(X_train, y_train):
@@ -41,7 +38,6 @@ def dummy_regressor_baseline(X_train, y_train):
     dummyregressor_median = DummyRegressor(strategy='median')
     dummyregressor_mean.fit(X_train, y_train)
     dummyregressor_median.fit(X_train, y_train)
-
     return dummyregressor_mean, dummyregressor_median
 
 def get_linear_model(X_train, y_train):
@@ -50,7 +46,6 @@ def get_linear_model(X_train, y_train):
     """
     model = LinearRegression()
     model.fit(X_train, y_train)
-    
     return model
   
 def get_default_krr(X_train, y_train):
@@ -59,7 +54,6 @@ def get_default_krr(X_train, y_train):
     """
     model = KernelRidge(kernel='rbf')
     model.fit(X_train, y_train)
-    
     return model
 
 def get_default_xgb(X_train, y_train, random_seed=10):
@@ -68,7 +62,6 @@ def get_default_xgb(X_train, y_train, random_seed=10):
     """
     model = XGBRegressor(random_state=random_seed)
     model.fit(X_train, y_train)
-    
     return model
 
 def get_default_rf(X_train, y_train, random_seed=10):
@@ -77,7 +70,6 @@ def get_default_rf(X_train, y_train, random_seed=10):
     """
     model = RandomForestRegressor(random_state=random_seed)
     model.fit(X_train, y_train)
-    
     return model
 
 def reg_cv(model_type, search_type, param, cv, scorer, X_train, y_train, n_iter = 500, random_seed=10):
@@ -121,5 +113,4 @@ def reg_cv(model_type, search_type, param, cv, scorer, X_train, y_train, n_iter 
     
     search.fit(X_train, y_train)
     best_model = search.best_estimator_
-
     return search, best_model
