@@ -7,12 +7,18 @@ from molSimplify.Informatics.MOF.PBC_functions import overlap_removal, solvent_r
 from molSimplify.Informatics.MOF.MOF_descriptors import get_MOF_descriptors, get_primitive
 
 def cif_number(cif_folder):
+    """
+    Counts the number of CIF (.cif) files in a given folder path.
+    """
     all_files = os.listdir(cif_folder)
     cif_files = [f for f in all_files if f.endswith('.cif')]
     num_cif_files = len(cif_files)
     return num_cif_files
 
 def get_rac(featurization_directory, occupancy_tolerance=0.9, wiggleroom=1.0, depth=3):
+    """
+    Computes RAC features and returns them as a pandas DataFrame.
+    """
     cif_folder = os.path.join(featurization_directory, 'cif')
     primitive_folder = os.path.join(featurization_directory, 'primitive')
     overlap_free_folder = os.path.join(featurization_directory, 'no_overlap')
@@ -27,23 +33,18 @@ def get_rac(featurization_directory, occupancy_tolerance=0.9, wiggleroom=1.0, de
     for cif_file in os.listdir(cif_folder):
         if not cif_file.lower().endswith('.cif'):
             continue
-
         cif_path = os.path.join(cif_folder, cif_file)
         primitive_path = os.path.join(primitive_folder, cif_file)
         overlap_free_path = os.path.join(overlap_free_folder, cif_file)
         solvent_free_path = os.path.join(solvent_free_folder, cif_file)
         xyz_path = os.path.join(xyz_folder, cif_file.replace(".cif", ".xyz"))
-
         try:
             # Convert to primitive cell
             get_primitive(cif_path, primitive_path)
-
             # Remove overlapping atoms
             overlap_removal(primitive_path, overlap_free_path)
-
             # Remove solvent
             solvent_removal(overlap_free_path, solvent_free_path, wiggle_room=wiggleroom)
-
             # Compute RACs
             full_names, full_descriptors = get_MOF_descriptors(
                 data=solvent_free_path,
@@ -52,19 +53,15 @@ def get_rac(featurization_directory, occupancy_tolerance=0.9, wiggleroom=1.0, de
                 xyzpath=xyz_path,
                 wiggle_room=wiggleroom
             )
-
             # Add filename to features
             full_names.append('MOFname')
             full_descriptors.append(cif_file)
-
             # Save all features into list of dictionary
             featurization = dict(zip(full_names, full_descriptors))
             featurization_list.append(featurization)
-
         except Exception as e:
             print(f"Skipping {cif_file} due to error: {e}")
             continue
-
     df = pd.DataFrame(featurization_list)
     return df
 
@@ -80,14 +77,15 @@ def to_cygwin_path(win_path):
     return f"/cygdrive/{drive}/{path_without_drive}"
 
 def run_zeopp_command(args, zeopp_dir, cygwin_bash=None):
+    """
+    Executes a Zeo++ command in the specified Zeo++ directory, handling Windows via Cygwin.
+    """
     if is_windows():
-        # Convert zeopp_dir to Cygwin path
         network_cmd = ' '.join(args)
         bash_command = f'cd "{zeopp_dir}" && {network_cmd}'
         cmd = [cygwin_bash, "-l", "-c", bash_command]
     else:
         cmd = [os.path.join(zeopp_dir, args[0])] + args[1:]
-
     try:
         subprocess.run(cmd, check=True, capture_output=True, text=True)
         return True
@@ -95,8 +93,10 @@ def run_zeopp_command(args, zeopp_dir, cygwin_bash=None):
         print(f"Error running {args[0]}:\n{e.stderr.strip()}")
         return False
 
-
 def pore_diameter(cif_path, output_folder, zeopp_dir, network_bin, cygwin_bash=None):
+    """
+    Computes the pore diameter of a structure from a CIF file using Zeo++.
+    """
     out_file = os.path.join(output_folder,
                             os.path.splitext(os.path.basename(cif_path))[0] + ".res")
     if is_windows():
@@ -105,9 +105,11 @@ def pore_diameter(cif_path, output_folder, zeopp_dir, network_bin, cygwin_bash=N
     args = [network_bin, "-ha", "-res", out_file, cif_path]
     return run_zeopp_command(args, zeopp_dir, cygwin_bash)
 
-
 def surface_area(cif_path, output_folder, zeopp_dir, network_bin,
                  chan_radius, probe_radius, sa_samples, cygwin_bash=None):
+    """
+    Computes the surface area of a structure from a CIF file using Zeo++.
+    """
     out_file = os.path.join(output_folder,
                             os.path.splitext(os.path.basename(cif_path))[0] + ".sa")
     if is_windows():
@@ -125,9 +127,11 @@ def surface_area(cif_path, output_folder, zeopp_dir, network_bin,
     ]
     return run_zeopp_command(args, zeopp_dir, cygwin_bash)
 
-
 def probe_occupiable_volume(cif_path, output_folder, zeopp_dir, network_bin,
                             chan_radius, probe_radius, volpo_samples, cygwin_bash=None):
+    """
+    Computes the probe occupiable volume of a structure from a CIF file using Zeo++.
+    """
     out_file = os.path.join(output_folder,
                             os.path.splitext(os.path.basename(cif_path))[0] + ".volpo")
     if is_windows():
@@ -146,9 +150,18 @@ def probe_occupiable_volume(cif_path, output_folder, zeopp_dir, network_bin,
     ]
     return run_zeopp_command(args, zeopp_dir, cygwin_bash)
 
-
 def get_geo(featurization_directory, zeopp_dir, cygwin_bash,
             chan_radius=1.4, probe_radius=1.4, sa_samples=10000, volpo_samples=10000):
+    """
+    Computes geometric features of structures (from CIF files) using Zeo++ 
+    and saves the results in the specified output folder.
+
+    This function processes all CIF files in the 'primitive' subfolder of 
+    `featurization_directory` and calculates:
+        - Pore diameter
+        - Accessible surface area
+        - Probe-occupiable volume
+    """         
     network_bin = "./network" if is_windows() else "network"
     input_folder = os.path.join(featurization_directory, "primitive")
     output_folder = os.path.join(featurization_directory, "zeoplusplus_output")
@@ -168,21 +181,21 @@ def get_geo(featurization_directory, zeopp_dir, cygwin_bash,
             success = False
     return True
 
-#Convert the zeoplusplus data into csv files
-
 def feature_zeopp(featurization_directory):
+    """
+    Aggregates Zeo++ output files (.res, .sa, .volpo) into a single CSV file 
+    containing geometric features for each structure.
+    """
     input_dir = os.path.join(featurization_directory, 'zeoplusplus_output')
     output_csv = os.path.join(featurization_directory, 'zeoplusplus_featurization_frame.csv')
-
     if not os.path.exists(input_dir):
         print(f"Input directory not found: {input_dir}")
         return False
-
     all_files = os.listdir(input_dir)
     res_files = [f for f in all_files if f.endswith(".res")]
     sa_files = [f for f in all_files if f.endswith(".sa")]
     volpo_files = [f for f in all_files if f.endswith(".volpo")]
-    
+
     results = {}
     # --- For res files ---
     for filename in res_files:
@@ -259,6 +272,13 @@ def feature_zeopp(featurization_directory):
     return True
 
 def merging():
+    """
+    Merges Zeo++ and RAC featurization data into a single DataFrame.
+
+    Reads two CSV files:
+        - "zeoplusplus_featurization_frame.csv": contains geometric features from Zeo++
+        - "rac_featurization_frame.csv": contains RAC features
+    """
     csv1 = pd.read_csv("zeoplusplus_featurization_frame.csv")
     csv2 = pd.read_csv("rac_featurization_frame.csv")
     csv2["MOFname"] = csv2["MOFname"].str.replace(".cif", "", regex=False)
