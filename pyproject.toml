@@ -1,1 +1,23 @@
+[build-system]
+requires = ["setuptools"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "CHE1147-Group11-Project"
+version = "0.1.0"
+description = "A short description of your project."
+readme = "README.md"
+requires-python = "==3.8.20"
+license = { text = "MIT" }
+authors = [
+    { name = "Your Name", email = "you@example.com" }
+    { name = "Your Name", email = "you@example.com" }
+    { name = "Your Name", email = "you@example.com" }
+]
+
+[dependencies]
+dependencies = [
+    # "requests>=2.31",
+    # "numpy>=1.25",
+]
 
