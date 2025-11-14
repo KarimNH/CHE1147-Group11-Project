@@ -117,12 +117,9 @@ def per_imprt(model,
         DataFrame containing feature names, mean importance, and standard deviation of importance.
     """
     if scaler is not None:
-        x_train_scaled = scaler.transform(x_train)
-        x_train = pd.DataFrame(x_train_scaled, columns=full_columns)
         x_test_scaled = scaler.transform(x_test)
         x_test = pd.DataFrame(x_test_scaled, columns=full_columns)
     else:
-        x_train = x_train
         x_test = x_test
     
     result = permutation_importance(model,
