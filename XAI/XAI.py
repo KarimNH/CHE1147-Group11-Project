@@ -128,8 +128,8 @@ def per_imprt(model,
     result = permutation_importance(model,
                                     x_test,
                                     y_test,
-                                    n_repeats=n_repeats,
-                                    random_state=random_state,
+                                    n_repeats = n_repeats,
+                                    random_state = random_state,
                                     scoring=scoring)
     importance_df = pd.DataFrame({
         "feature": x_test.columns,
