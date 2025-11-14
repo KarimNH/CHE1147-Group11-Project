@@ -274,7 +274,6 @@ def feature_zeopp(featurization_directory):
 def merging():
     """
     Merges Zeo++ and RAC featurization data into a single DataFrame.
-
     Reads two CSV files:
         - "zeoplusplus_featurization_frame.csv": contains geometric features from Zeo++
         - "rac_featurization_frame.csv": contains RAC features
