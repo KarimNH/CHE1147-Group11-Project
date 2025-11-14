@@ -4,17 +4,15 @@ import shap
 from sklearn.inspection import permutation_importance
 import matplotlib.pyplot as plt
 
-def explanation_shap(model, x_train, x_test, task_type, selected_columns = None, full_columns = None, scaler = None, index = 10, show_plot = False):
+def explanation_shap(model, x_train, x_test, task_type, full_columns = None, scaler = None, index = 10, show_plot = False):
     if scaler is not None:
         x_train_scaled = scaler.transform(x_train)
-        x_train_scaled_df = pd.DataFrame(x_train_scaled, columns=full_columns)
-        x_train = x_train_scaled_df[selected_columns]
+        x_train = pd.DataFrame(x_train_scaled, columns=full_columns)
         x_test_scaled = scaler.transform(x_test)
-        x_test_scaled_df = pd.DataFrame(x_test_scaled, columns=full_columns)
-        x_test = x_test_scaled_df[selected_columns]
+        x_test = pd.DataFrame(x_test_scaled, columns=full_columns)
     else:
-        x_train = x_train[selected_columns] if selected_columns is not None else x_train
-        x_test = x_test[selected_columns] if selected_columns is not None else x_test
+        x_train = x_train
+        x_test = x_test
     
     explainer = shap.Explainer(model, x_train)
     shap_values = explainer(x_test)
@@ -40,7 +38,6 @@ def per_imprt(model,
                 x_test,
                 y_test,
                 scaler = None,
-                selected_columns = None,
                 full_columns = None,
                 n_repeats = 10,
                 random_state = 0,
@@ -49,11 +46,13 @@ def per_imprt(model,
                 plot_top_n = 10):
     """Calculate permutation importance and return the result."""
     if scaler is not None:
+        x_train_scaled = scaler.transform(x_train)
+        x_train = pd.DataFrame(x_train_scaled, columns=full_columns)
         x_test_scaled = scaler.transform(x_test)
-        x_test_scaled_df = pd.DataFrame(x_test_scaled, columns=full_columns)
-        x_test = x_test_scaled_df[selected_columns]
+        x_test = pd.DataFrame(x_test_scaled, columns=full_columns)
     else:
-        x_test = x_test[selected_columns] if selected_columns is not None else x_test
+        x_train = x_train
+        x_test = x_test
     
     result = permutation_importance(model,
                                     x_test,
