@@ -13,7 +13,6 @@ def cif_number(cif_folder):
     return num_cif_files
 
 def get_rac(featurization_directory, occupancy_tolerance=0.9, wiggleroom=1.0, depth=3):
-    
     cif_folder = os.path.join(featurization_directory, 'cif')
     primitive_folder = os.path.join(featurization_directory, 'primitive')
     overlap_free_folder = os.path.join(featurization_directory, 'no_overlap')
@@ -150,7 +149,6 @@ def probe_occupiable_volume(cif_path, output_folder, zeopp_dir, network_bin,
 
 def get_geo(featurization_directory, zeopp_dir, cygwin_bash,
             chan_radius=1.4, probe_radius=1.4, sa_samples=10000, volpo_samples=10000):
-    
     network_bin = "./network" if is_windows() else "network"
     input_folder = os.path.join(featurization_directory, "primitive")
     output_folder = os.path.join(featurization_directory, "zeoplusplus_output")
@@ -258,7 +256,6 @@ def feature_zeopp(featurization_directory):
             full_data = {key: data.get(key, 0) for key in fieldnames[1:]}
             full_data["MOFname"] = mof
             writer.writerow(full_data)
-
     return True
 
 def merging():
