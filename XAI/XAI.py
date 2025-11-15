@@ -1,10 +1,11 @@
 import pandas as pd
 import numpy as np
 import shap
+from sklearn.pipeline import Pipeline
 from sklearn.inspection import permutation_importance
 import matplotlib.pyplot as plt
 
-def explanation_shap(model, x_train, x_test, task_type, scaler = None, full_columns = None, index = 10, show_plot = False):
+def explanation_shap(model, x_train, x_test, task_type, index = 10, show_plot = False):
     """
     Generate SHAP explanations for a given model and dataset.
     Global explanations show feature importance across all test samples.
@@ -22,11 +23,6 @@ def explanation_shap(model, x_train, x_test, task_type, scaler = None, full_colu
         Type of SHAP explanation:
         'global' for overall feature importance,
         'local' for individual prediction explanation.
-    scaler : object, optional
-        Pre-fitted scaler (e.g., StandardScaler) to transform x_train and x_test
-    full_columns : list, optional
-        List of column names for the dataset. Required only if a scaler is used
-        (to retain proper column names after scaling).
     index : int, optional
         For local task: index of the sample to explain (default is 10).
         For global task: maximum number of features to display in the beeswarm plot.
@@ -42,16 +38,10 @@ def explanation_shap(model, x_train, x_test, task_type, scaler = None, full_colu
     shap_df : pd.DataFrame
         DataFrame containing SHAP values; either global (all samples) or local (single sample).
     """
-    if scaler is not None:
-        x_train_scaled = scaler.transform(x_train)
-        x_train = pd.DataFrame(x_train_scaled, columns=full_columns)
-        x_test_scaled = scaler.transform(x_test)
-        x_test = pd.DataFrame(x_test_scaled, columns=full_columns)
+    if isinstance(model, Pipeline):
+        explainer = shap.Explainer(model.predict, x_train)
     else:
-        x_train = x_train
-        x_test = x_test
-    
-    explainer = shap.Explainer(model, x_train)
+        explainer = shap.Explainer(model, x_train)
     shap_values = explainer(x_test)
     
     if task_type == 'global':
