@@ -39,7 +39,7 @@ def explanation_shap(model, x_train, x_test, task_type, index = 10, show_plot = 
         DataFrame containing SHAP values; either global (all samples) or local (single sample).
     """
     if isinstance(model, Pipeline):
-        explainer = shap.Explainer(model.predict, x_train)
+        explainer = shap.Explainer(lambda X: model.predict(X), x_train)
     else:
         explainer = shap.Explainer(model, x_train)
     shap_values = explainer(x_test)
