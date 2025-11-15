@@ -56,7 +56,11 @@ def explanation_shap(model, x_train, x_test, task_type, scaler = None, full_colu
     
     if task_type == 'global':
         if show_plot:
-            shap.plots.beeswarm(shap_values, max_display=index)
+            mean_abs = np.abs(shap_values.values).mean(axis=0)
+            top_idx = np.argsort(mean_abs)[-index:][::-1]
+            top_features = x_test.columns[top_idx]
+            shap_values_top = shap_values[:, top_idx]
+            shap.plots.beeswarm(shap_values_top, max_display=index)
         all_shap_values_array = shap_values.values
         feature_names = x_test.columns if hasattr(x_test, 'columns') else [f"Feature_{i}" for i in range(all_shap_values_array.shape[1])]
         shap_df = pd.DataFrame(all_shap_values_array, columns=feature_names)
