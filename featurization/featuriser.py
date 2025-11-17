@@ -270,16 +270,3 @@ def feature_zeopp(featurization_directory):
             full_data["MOFname"] = mof
             writer.writerow(full_data)
     return True
-
-def merging():
-    """
-    Merges Zeo++ and RAC featurization data into a single DataFrame.
-    Reads two CSV files:
-        - "zeoplusplus_featurization_frame.csv": contains geometric features from Zeo++
-        - "rac_featurization_frame.csv": contains RAC features
-    """
-    csv1 = pd.read_csv("zeoplusplus_featurization_frame.csv")
-    csv2 = pd.read_csv("rac_featurization_frame.csv")
-    csv2["MOFname"] = csv2["MOFname"].str.replace(".cif", "", regex=False)
-    merged = pd.merge(csv1, csv2, on="MOFname", how="inner")
-    return merged
