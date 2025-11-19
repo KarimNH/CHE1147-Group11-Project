@@ -1,5 +1,4 @@
-from sklearn.metrics import (accuracy_score, precision_score, recall_score, f1_score, r2_score,
-                             mean_absolute_error, mean_squared_error, max_error, mean_absolute_percentage_error)
+from sklearn.metrics import (r2_score, mean_absolute_error, mean_squared_error, max_error, mean_absolute_percentage_error)
 
 def get_regression_metrics(model, X, y_true):
     """
