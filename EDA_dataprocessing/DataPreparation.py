@@ -4,10 +4,7 @@ import numpy as np
 from sklearn.model_selection import train_test_split
 
 
-RANDOM_SEED = 10
-np.random.seed(RANDOM_SEED)
-
-def DataPreparation(merged_file):
+def DataPreparation(merged_file,RANDOM_SEED):
 
     """
     Takes the merged raw dataset as input, cleans and reduces features,
