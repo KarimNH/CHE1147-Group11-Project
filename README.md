@@ -57,7 +57,7 @@ This folder contains all saved machine learning models produced during the proje
 ### 6. `models_training`
 This folder contains scripts related to training machine-learning models.
 - **`models_training.py`**
-  Contains scripts to fit different models on the training dataset and search for the set of hyperparameters that results in the most accurate model on the training dataset.
+  Contains scripts to fit a model on a dataset and search for the set of hyperparameters that results in the most accurate model on a dataset.
 - **`models_training_demo.ipynb`** 
   Demonstrates the training of baseline models with a single fit and optimized models with hyperparameter optimization using grid search and 3-fold cross-validation.
 
