@@ -18,16 +18,14 @@ This folder contains all scripts and notebooks used for data preprocessing befor
 - **`EDA_visualization.ipynb 
   Contains visualizations used to explore and summarize the dataset (histograms, correlations, feature distributions, etc.).
 
-### 2.	XAI 
+### 2.	'XAI' 
 This folder contains scripts related to model explainability.
 - **`XAI.py 
   Generates SHAP explanations for a trained model and dataset.  
   Global explanations highlight overall feature importance across all test samples.  
  Local explanations focus on a single MOF instance (specified using the `index` parameter).
 
-####################################################################################################
-
-3.	data 
+### 3.	'data'
 This folder contains all data required to run the project.
 - **`Raw data folder  
   Contains the unprocessed outputs from featurization QMOF steps.
@@ -37,21 +35,15 @@ This folder contains all data required to run the project.
   Cleaned and processed test split used for model evaluation.
 - **`train.csv  
   Cleaned and processed training split used for model development.
-  
-####################################################################################################
 
-4.	featurization 
+### 4.	'featurization' 
 folder for featurizing the QMOF 
 featurzier.py: .cif files using molsplify to Computes RAC features and returns them as a pandas DataFrame and zeop++ to Computes geometric features of structures (from CIF files) using Zeo++
 
-####################################################################################################
-
-5.	models 
+### 5.	'models' 
 This folder contains all saved machine-learning models produced during the project, including both default (untuned) versions and hyperparameter-optimized versions. These .pkl files can be loaded directly
 
-####################################################################################################
-
-7.	models_training
+### 7.	'models_training'
 This folder contains all scripts used for training machine-learning models, performing hyperparameter tuning, and evaluating baseline performance.
 - **`models_training.py 
 
@@ -69,5 +61,4 @@ get_default_rf() Default Random Forest regressor.
 
 reg_cv() Function returns the best model found by cross-validation along with its best hyperparameters
 
-####################################################################################################
 
