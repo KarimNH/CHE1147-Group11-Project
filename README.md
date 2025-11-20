@@ -21,9 +21,9 @@ This folder contains all scripts and notebooks used for data preprocessing befor
 ### 2. `XAI`
 This folder contains scripts related to model explainability.
 - **`XAI.py`**
-  Generates SHAP explanations for a trained model and dataset.  
-  Global explanations highlight overall feature importance across all test samples.  
- Local explanations focus on a single MOF instance (specified using the `index` parameter).
+  Contains scripts to generates SHAP explanations and permutation feature importance for a trained model and dataset.
+- **`XAI_demo.ipynb`**
+  Demonstrates the use of functions to generate SHAP explanations and permutation feature importance.
 
 ### 3. `data`
 This folder contains all data required to run the project.
