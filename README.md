@@ -30,7 +30,7 @@ This folder contains all data required to run the project.
 - **`Raw data folder`**
   Contains the unprocessed outputs from featurization QMOF steps.
 - **`merged_rac_zeo_bandgap.csv`**
- Final merged dataset containing the target label (band gap), geometric features, and RAC features.
+  Final merged dataset containing the target label (band gap), geometric features, and RAC features.
 - **`test.csv`**
   Cleaned and processed test split used for model evaluation.
 - **`train.csv`**
@@ -42,11 +42,18 @@ This folder contains scripts related to featurization of crystal structures of M
   A folder that contains demo cif file representing the crystal structures of MOFs.
 - **`featurzier.py`** 
   Contains scripts to generates RAC descriptors using molsplify and geometric descriptors using Zeo++.
-- **`featurzion_demo.py`**
+- **`featurzion_demo.ipynb`**
   Demonstrates the featurization of crystal structures of MOFs to create two csv files that contain RAC descriptors and geometric descriptors respectively.
 
 ### 5. `models`
-This folder contains all saved machine-learning models produced during the project, including both default (untuned) versions and hyperparameter-optimized versions. These .pkl files can be loaded directly
+This folder contains all saved machine learning models produced during the project, including baseline models and optimized models, as well as scripts that calculate statistical metrics of model predictions made on the testing dataset. 
+- various **`.pkl`**
+  files
+  These files each contain a saved machine learning model and can be directly loaded.
+- **`testing_metrics.py`** 
+  Contains scripts to calculate statistical metrics of a model's prediction of the target (band gap) for samples in a dataset.
+- **`testing_metrics_demo.ipynb`** 
+  Demonstrates the evaluation of different models by calculating the statistical metrics of their predictions of the target (band gap) for samples in the testing dataset.
 
 ### 6. `models_training`
 This folder contains all scripts used for training machine-learning models, performing hyperparameter tuning, and evaluating baseline performance.
