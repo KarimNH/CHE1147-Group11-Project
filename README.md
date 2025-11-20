@@ -4,11 +4,11 @@ Machine learning of metal-organic framework design for predicting band gap energ
 ## Overview
 
 ## Usage
-
 To use this github, the requirements of packages are listed in requirement.txt.
 In addition, for featurization, the package of Zeoplusplus was used, which required Cygwin if you are using windows.
-===================================================================================================
+The detail of the folders are decribed below, and each folder contains a jupyter notrbook as demonstration of the usage of code.
 
+## Folders
 1.	EDA_dataprocessing 
 This folder contains all scripts and notebooks used for data preprocessing before training the machine-learning models.
 - **`DataMerger.py  
