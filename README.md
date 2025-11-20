@@ -9,13 +9,13 @@ Each folder contains a Jupyter Notebook demonstrating how to use the associated 
 ## Folder Structure
 ### 1. `EDA_dataprocessing`
 This folder contains all scripts and notebooks used for data preprocessing before training the machine-learning models.
-- **`DataMerger.py  
+- **`DataMerger.py`** 
   Merges RAC, Zeo++ and QMOF label (band gap) CSV files into a single dataset.
-- **`DataPrepDemo.ipynb  
+- **`DataPrepDemo.ipynb`** 
   Demonstrates the merging of datasets, basic exploratory data analysis (EDA) and dataset splitting.
-- **`DataPreparation.py 
+- **`DataPreparation.py`**
   Takes the merged raw dataset as input, cleans and reduces features, performs the train/test split.
-- **`EDA_visualization.ipynb 
+- **`EDA_visualization.ipynb`**
   Contains visualizations used to explore and summarize the dataset (histograms, correlations, feature distributions, etc.).
 
 ### 2.	'XAI' 
