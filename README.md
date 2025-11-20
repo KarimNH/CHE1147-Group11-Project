@@ -52,12 +52,19 @@ This folder contains all saved machine-learning models produced during the proje
 7.	models_training
 This folder contains all scripts used for training machine-learning models, performing hyperparameter tuning, and evaluating baseline performance.
 - **`models_training.py 
+
 get_regression_metrics() Returns a dictionary containing: MAE, MSE, R² ,MAPE, Max Error Used for evaluating all trained models.
+
 dummy_regressor_baseline() Creates simple baseline predictors (mean and median). Useful for checking whether ML models actually learn meaningful patterns.
+
 get_linear_model() Returns a simple linear regression model. 
+
 get_default_krr() Kernel Ridge Regression model with RBF kernel. 
+
 get_default_xgb() Default XGBoost regressor. 
+
 get_default_rf() Default Random Forest regressor.
+
 reg_cv() Function returns the best model found by cross-validation along with its best hyperparameters
 
 ####################################################################################################
