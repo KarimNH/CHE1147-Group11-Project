@@ -48,8 +48,7 @@ This folder contains scripts related to featurization of crystal structures of M
 ### 5. `models`
 This folder contains all saved machine learning models produced during the project, including baseline models and optimized models, as well as scripts that calculate statistical metrics of model predictions made on the testing dataset. 
 - various **`.pkl`**
-  files
-  These files each contain a saved machine learning model and can be directly loaded.
+  files that each contain a saved machine learning model and can be directly loaded.
 - **`testing_metrics.py`** 
   Contains scripts to calculate statistical metrics of a model's prediction of the target (band gap) for samples in a dataset.
 - **`testing_metrics_demo.ipynb`** 
