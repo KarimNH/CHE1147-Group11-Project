@@ -1,15 +1,13 @@
 # CHE1147-Group11-Project
-Machine learning of metal-organic framework design for predicting band gap energies.  
-
-## Overview
+Machine learning of metal-organic framework design for predicting band gap energies.
 
 ## Usage
-To use this github, the requirements of packages are listed in requirement.txt.
-In addition, for featurization, the package of Zeoplusplus was used, which required Cygwin if you are using windows.
-The detail of the folders are decribed below, and each folder contains a jupyter notrbook as demonstration of the usage of code.
+To use this repository, install all required Python packages from requirements.txt.
+For featurization, this project uses Zeo++, which requires Cygwin if you are using Windows.
+Each folder contains a Jupyter Notebook demonstrating how to use the associated scripts.
 
-## Folders
-1.	EDA_dataprocessing 
+## Folder Structure
+### 1. `EDA_dataprocessing`
 This folder contains all scripts and notebooks used for data preprocessing before training the machine-learning models.
 - **`DataMerger.py  
   Merges RAC, Zeo++ and QMOF label (band gap) CSV files into a single dataset.
@@ -19,10 +17,8 @@ This folder contains all scripts and notebooks used for data preprocessing befor
   Takes the merged raw dataset as input, cleans and reduces features, performs the train/test split.
 - **`EDA_visualization.ipynb 
   Contains visualizations used to explore and summarize the dataset (histograms, correlations, feature distributions, etc.).
-  
-####################################################################################################
 
-2.	XAI 
+### 2.	XAI 
 This folder contains scripts related to model explainability.
 - **`XAI.py 
   Generates SHAP explanations for a trained model and dataset.  
