@@ -37,9 +37,13 @@ This folder contains all data required to run the project.
   Cleaned and processed training split used for model development.
 
 ### 4. `featurization`
-Folder for featurizing the crystal structures of MOFs from cif files. 
+This folder contains scripts related to featurization of crystal structures of MOFs from cif files. 
+- **`cif`**
+  A folder that contains demo cif file representing the crystal structures of MOFs.
 - **`featurzier.py`** 
-  cif files using molsplify to Computes RAC features and returns them as a pandas DataFrame and zeop++ to Computes geometric features of structures (from CIF files) using Zeo++
+  Contains scripts to generates RAC descriptors using molsplify and geometric descriptors using Zeo++.
+- **`featurzion_demo.py`**
+  Demonstrates the featurization of crystal structures of MOFs to create two csv files that contain RAC descriptors and geometric descriptors respectively.
 
 ### 5. `models`
 This folder contains all saved machine-learning models produced during the project, including both default (untuned) versions and hyperparameter-optimized versions. These .pkl files can be loaded directly
