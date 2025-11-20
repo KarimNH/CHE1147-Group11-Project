@@ -21,7 +21,7 @@ This folder contains all scripts and notebooks used for data preprocessing befor
 ### 2. `XAI`
 This folder contains scripts related to model explainability.
 - **`XAI.py`**
-  Contains scripts to generates SHAP explanations and permutation feature importance for a trained model and dataset.
+  Contains scripts to generate SHAP explanations and permutation feature importance for a trained model and dataset.
 - **`XAI_demo.ipynb`**
   Demonstrates the use of functions to generate SHAP explanations and permutation feature importance.
 
@@ -41,12 +41,12 @@ This folder contains scripts related to featurization of crystal structures of M
 - **`cif`**
   A folder that contains demo cif file representing the crystal structures of MOFs.
 - **`featurzier.py`** 
-  Contains scripts to generates RAC descriptors using molsplify and geometric descriptors using Zeo++.
+  Contains scripts to generate RAC descriptors using molsplify and geometric descriptors using Zeo++.
 - **`featurzion_demo.ipynb`**
   Demonstrates the featurization of crystal structures of MOFs to create two csv files that contain RAC descriptors and geometric descriptors respectively.
 
 ### 5. `models`
-This folder contains all saved machine learning models produced during the project, including baseline models and optimized models, as well as scripts that calculate statistical metrics of model predictions made on the testing dataset. 
+This folder contains all saved machine learning models produced during the project, including baseline models and optimized models, as well as scripts related to calculating statistical metrics of model predictions made on a dataset. 
 - various **`.pkl`**
   files that each contain a saved machine learning model and can be directly loaded.
 - **`testing_metrics.py`** 
@@ -55,21 +55,10 @@ This folder contains all saved machine learning models produced during the proje
   Demonstrates the evaluation of different models by calculating the statistical metrics of their predictions of the target (band gap) for samples in the testing dataset.
 
 ### 6. `models_training`
-This folder contains all scripts used for training machine-learning models, performing hyperparameter tuning, and evaluating baseline performance.
+This folder contains scripts related to training machine-learning models.
 - **`models_training.py`**
-
-get_regression_metrics() Returns a dictionary containing: MAE, MSE, R² ,MAPE, Max Error Used for evaluating all trained models.
-
-dummy_regressor_baseline() Creates simple baseline predictors (mean and median). Useful for checking whether ML models actually learn meaningful patterns.
-
-get_linear_model() Returns a simple linear regression model. 
-
-get_default_krr() Kernel Ridge Regression model with RBF kernel. 
-
-get_default_xgb() Default XGBoost regressor. 
-
-get_default_rf() Default Random Forest regressor.
-
-reg_cv() Function returns the best model found by cross-validation along with its best hyperparameters
+  Contains scripts to fit different models on the training dataset and search for the set of hyperparameters that results in the most accurate model on the training dataset.
+- **`models_training_demo.ipynb`** 
+  Demonstrates the training of baseline models with a single fit and optimized models with hyperparameter optimization using grid search and 3-fold cross-validation.
 
 
