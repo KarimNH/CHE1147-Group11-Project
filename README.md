@@ -1,5 +1,5 @@
 # CHE1147-Group11-Project
-Metal–organic frameworks (MOFs), with their tunable porous structures and vast design flexibility, are promising for energy-related applications, making the investigation of their electrical conductivity essential for optimizing electrochemical performance. As the direct measurement of electrical conductivity of MOFs is costly and complex, our project aims to use machine learning to predict their band gap energies and identify the most influential factors. This allow the guiding of design and synthesis of electrically conductive MOFs.
+Metal–organic frameworks (MOFs), with their tunable porous structures and vast design flexibility, are promising for energy-related applications, making the investigation of their electrical conductivity essential for optimizing electrochemical performance. As the direct measurement of electrical conductivity of MOFs is costly and complex, our project aims to use machine learning to predict their band gap energies instead and identify the most influential factors. This allow the guiding of future design and synthesis of electrically conductive MOFs.
 
 ## Usage
 To use this repository, install all required Python packages from requirements.txt.
